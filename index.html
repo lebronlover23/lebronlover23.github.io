@@ -36,37 +36,21 @@
             font-size: 1.1em;
             line-height: 1.6;
         }
-        .button-container {
+        .filter-container {
             text-align: center;
             margin-bottom: 20px;
         }
-        .button-container button {
+        .filter-container select {
             background-color: #f9a825;
             color: #121212;
             border: none;
-            padding: 10px 20px;
+            padding: 10px;
             margin: 5px;
             border-radius: 5px;
-            cursor: pointer;
             font-size: 1em;
-            transition: background-color 0.3s;
-        }
-        .button-container button:hover {
-            background-color: #c68400;
         }
         .summary-container {
             margin-bottom: 20px;
-        }
-        .search-box {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        .search-box input {
-            padding: 10px;
-            font-size: 1em;
-            border: none;
-            border-radius: 5px;
-            width: 80%;
         }
         .table-container {
             width: 100%;
@@ -123,16 +107,20 @@
     <h1>LeBron James Stats</h1>
     <div class="intro">
         <p>LeBron James, also known as "King James", is widely regarded as one of the greatest basketball players of all time. With a career spanning multiple decades, LeBron has amassed numerous accolades, including multiple NBA championships, MVP awards, and All-Star selections.</p>
-        <p>Explore the stats of LeBron's illustrious career by clicking on the buttons below, each representing a different year.</p>
+        <p>Explore the stats of LeBron's illustrious career using the filters below.</p>
     </div>
-    <div class="button-container" id="buttonContainer">
-        <!-- Buttons will be dynamically created here -->
+    <div class="filter-container">
+        <select id="yearSelect">
+            <option value="">Select Year</option>
+        </select>
+        <select id="statSelect">
+            <option value="PTS">Points</option>
+            <option value="AST">Assists</option>
+            <option value="TRB">Rebounds</option>
+        </select>
     </div>
     <div class="summary-container" id="summaryContainer">
         <!-- Summary will be dynamically created here -->
-    </div>
-    <div class="search-box">
-        <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Search for stats...">
     </div>
     <div class="table-container">
         <table class="stats-table" id="statsTable">
@@ -145,13 +133,11 @@
     <div class="chart-container">
         <canvas id="statsChart"></canvas>
     </div>
-    <button class="toggle-button" onclick="toggleView()">Toggle Detailed View</button>
 </div>
 
 <script>
     const stats = `[[STATS_DATA]]`;
     const statsByYear = {};
-    let detailedView = false;
     let currentPage = 1;
     const rowsPerPage = 10;
 
@@ -163,37 +149,47 @@
         statsByYear[year].push(row);
     });
 
-    const buttonContainer = document.getElementById('buttonContainer');
+    const yearSelect = document.getElementById('yearSelect');
+    const statSelect = document.getElementById('statSelect');
     const statsTable = document.getElementById('statsTable');
     const summaryContainer = document.getElementById('summaryContainer');
     const pagination = document.getElementById('pagination');
     const statsChart = document.getElementById('statsChart').getContext('2d');
 
     let chart;
+    let currentYear = '';
+    let currentStat = 'PTS';
 
     Object.keys(statsByYear).forEach(year => {
-        const button = document.createElement('button');
-        button.textContent = year;
-        button.onclick = () => displayStats(year);
-        buttonContainer.appendChild(button);
+        const option = document.createElement('option');
+        option.value = year;
+        option.textContent = year;
+        yearSelect.appendChild(option);
     });
 
-    function displayStats(year) {
+    yearSelect.addEventListener('change', () => {
+        currentYear = yearSelect.value;
+        displayStats(currentYear, currentStat);
+    });
+
+    statSelect.addEventListener('change', () => {
+        currentStat = statSelect.value;
+        displayStats(currentYear, currentStat);
+    });
+
+    function displayStats(year, stat) {
+        if (!year) return;
         const stats = statsByYear[year];
-        displaySummary(stats, year);
-        if (detailedView) {
-            displayDetailedView(stats, year);
-        }
-        displayChart(stats, year);
+        displaySummary(stats, year, stat);
+        displayDetailedView(stats, year);
+        displayChart(stats, year, stat);
     }
 
-    function displaySummary(stats, year) {
+    function displaySummary(stats, year, stat) {
         summaryContainer.innerHTML = `
             <h2>Summary for ${year}</h2>
             <p>Total Games: ${stats.length}</p>
-            <p>Average Points: ${calculateAverage(stats, 'PTS')}</p>
-            <p>Average Assists: ${calculateAverage(stats, 'AST')}</p>
-            <p>Average Rebounds: ${calculateAverage(stats, 'TRB')}</p>
+            <p>Average ${stat}: ${calculateAverage(stats, stat)}</p>
         `;
     }
 
@@ -204,7 +200,6 @@
         headers.forEach(header => {
             const th = document.createElement('th');
             th.textContent = header;
-            th.onclick = () => sortTable(headers.indexOf(header));
             headerRow.appendChild(th);
         });
         statsTable.appendChild(headerRow);
@@ -216,7 +211,7 @@
         const start = (page - 1) * rowsPerPage;
         const end = start + rowsPerPage;
         const paginatedStats = stats.slice(start, end);
-        
+
         const headerRow = document.createElement('tr');
         headers.forEach(header => {
             const th = document.createElement('th');
@@ -258,13 +253,34 @@
         return (sum / stats.length).toFixed(2);
     }
 
-    function sortTable(columnIndex) {
-        const rows = Array.from(statsTable.rows).slice(1);
-        const isAscending = statsTable.rows[0].cells[columnIndex].classList.toggle('asc');
-        rows.sort((rowA, rowB) => {
-            const cellA = rowA.cells[columnIndex].textContent.trim();
-            const cellB = rowB.cells[columnIndex].textContent.trim();
-            return isAscending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+    function displayChart(stats, year, stat) {
+        if (chart) {
+            chart.destroy();
+        }
+        const labels = stats.map(row => row.Date);
+        const data = stats.map(row => parseFloat(row[stat]));
+        chart = new Chart(statsChart, {
+            type: 'line',
+            data: {
+                labels,
+                datasets: [{
+                    label: stat,
+                    data,
+                    borderColor: 'rgba(249, 168, 37, 0.8)',
+                    backgroundColor: 'rgba(249, 168, 37, 0.2)',
+                    fill: true
+                }]
+            }
         });
-        rows.forEach(row => statsTable.appendChild(row));
     }
+</script>
+
+</body>
+</html>
+"""
+
+# Replacing the placeholder with the actual stats data in JSON format
+html_content_final = html_template_final.replace('[[STATS_DATA]]', stats_json)
+
+# Save the final HTML content to a file
+html_file_path_final = '/mnt/data/Lebron_James
