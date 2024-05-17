@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeBron James Stats</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>LeBron James Regular Season Stats</h1>
+        <input type="text" id="searchBar" placeholder="Search by Date, Team, Opponent, etc..." onkeyup="searchStats()">
+        <table id="statsTable">
+            <thead>
+                <tr>
+                    <th>G</th>
+                    <th>Date</th>
+                    <th>Age</th>
+                    <th>Tm</th>
+                    <th>Opp</th>
+                    <th>GS</th>
+                    <th>MP</th>
+                    <th>FG</th>
+                    <th>DRB</th>
+                    <th>TRB</th>
+                    <th>AST</th>
+                    <th>STL</th>
+                    <th>BLK</th>
+                    <th>TOV</th>
+                    <th>PF</th>
+                    <th>PTS</th>
+                    <th>GmSc</th>
+                    <th>+/-</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data will be dynamically inserted here -->
+            </tbody>
+        </table>
+    </div>
+    <script src="stats_data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
