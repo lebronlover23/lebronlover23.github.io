@@ -4,42 +4,267 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LeBron James Stats</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            width: 90%;
+            margin: 20px auto;
+            background: #1e1e1e;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 12px;
+        }
+        h1 {
+            text-align: center;
+            color: #f9a825;
+            margin-bottom: 10px;
+        }
+        .intro {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        .button-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .button-container button {
+            background-color: #f9a825;
+            color: #121212;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        .button-container button:hover {
+            background-color: #c68400;
+        }
+        .summary-container {
+            margin-bottom: 20px;
+        }
+        .search-box {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .search-box input {
+            padding: 10px;
+            font-size: 1em;
+            border: none;
+            border-radius: 5px;
+            width: 80%;
+        }
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+        }
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 0.9em;
+        }
+        .stats-table th, .stats-table td {
+            border: 1px solid #444;
+            padding: 8px;
+            text-align: center;
+        }
+        .stats-table th {
+            background-color: #333;
+            cursor: pointer;
+        }
+        .stats-table td {
+            background-color: #2b2b2b;
+        }
+        .stats-table tr:hover {
+            background-color: #444;
+        }
+        .chart-container {
+            width: 100%;
+            margin-top: 20px;
+        }
+        .pagination {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .pagination button {
+            background-color: #f9a825;
+            color: #121212;
+            border: none;
+            padding: 5px 10px;
+            margin: 0 2px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .pagination button:hover {
+            background-color: #c68400;
+        }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>LeBron James Regular Season Stats</h1>
-        <input type="text" id="searchBar" placeholder="Search by Date, Team, Opponent, etc..." onkeyup="searchStats()">
-        <table id="statsTable">
-            <thead>
-                <tr>
-                    <th>G</th>
-                    <th>Date</th>
-                    <th>Age</th>
-                    <th>Tm</th>
-                    <th>Opp</th>
-                    <th>GS</th>
-                    <th>MP</th>
-                    <th>FG</th>
-                    <th>DRB</th>
-                    <th>TRB</th>
-                    <th>AST</th>
-                    <th>STL</th>
-                    <th>BLK</th>
-                    <th>TOV</th>
-                    <th>PF</th>
-                    <th>PTS</th>
-                    <th>GmSc</th>
-                    <th>+/-</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Data will be dynamically inserted here -->
-            </tbody>
+
+<div class="container">
+    <h1>LeBron James Stats</h1>
+    <div class="intro">
+        <p>LeBron James, also known as "King James", is widely regarded as one of the greatest basketball players of all time. With a career spanning multiple decades, LeBron has amassed numerous accolades, including multiple NBA championships, MVP awards, and All-Star selections.</p>
+        <p>Explore the stats of LeBron's illustrious career by clicking on the buttons below, each representing a different year.</p>
+    </div>
+    <div class="button-container" id="buttonContainer">
+        <!-- Buttons will be dynamically created here -->
+    </div>
+    <div class="summary-container" id="summaryContainer">
+        <!-- Summary will be dynamically created here -->
+    </div>
+    <div class="search-box">
+        <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Search for stats...">
+    </div>
+    <div class="table-container">
+        <table class="stats-table" id="statsTable">
+            <!-- Table will be dynamically created here -->
         </table>
     </div>
-    <script src="stats_data.js"></script>
-    <script src="script.js"></script>
-</body>
-</html>
+    <div class="pagination" id="pagination">
+        <!-- Pagination buttons will be dynamically created here -->
+    </div>
+    <div class="chart-container">
+        <canvas id="statsChart"></canvas>
+    </div>
+    <button class="toggle-button" onclick="toggleView()">Toggle Detailed View</button>
+</div>
+
+<script>
+    const stats = `[[STATS_DATA]]`;
+    const statsByYear = {};
+    let detailedView = false;
+    let currentPage = 1;
+    const rowsPerPage = 10;
+
+    JSON.parse(stats).forEach(row => {
+        const year = row.Date.split('-')[0];
+        if (!statsByYear[year]) {
+            statsByYear[year] = [];
+        }
+        statsByYear[year].push(row);
+    });
+
+    const buttonContainer = document.getElementById('buttonContainer');
+    const statsTable = document.getElementById('statsTable');
+    const summaryContainer = document.getElementById('summaryContainer');
+    const pagination = document.getElementById('pagination');
+    const statsChart = document.getElementById('statsChart').getContext('2d');
+
+    let chart;
+
+    Object.keys(statsByYear).forEach(year => {
+        const button = document.createElement('button');
+        button.textContent = year;
+        button.onclick = () => displayStats(year);
+        buttonContainer.appendChild(button);
+    });
+
+    function displayStats(year) {
+        const stats = statsByYear[year];
+        displaySummary(stats, year);
+        if (detailedView) {
+            displayDetailedView(stats, year);
+        }
+        displayChart(stats, year);
+    }
+
+    function displaySummary(stats, year) {
+        summaryContainer.innerHTML = `
+            <h2>Summary for ${year}</h2>
+            <p>Total Games: ${stats.length}</p>
+            <p>Average Points: ${calculateAverage(stats, 'PTS')}</p>
+            <p>Average Assists: ${calculateAverage(stats, 'AST')}</p>
+            <p>Average Rebounds: ${calculateAverage(stats, 'TRB')}</p>
+        `;
+    }
+
+    function displayDetailedView(stats, year) {
+        statsTable.innerHTML = '';
+        const headers = Object.keys(stats[0]);
+        const headerRow = document.createElement('tr');
+        headers.forEach(header => {
+            const th = document.createElement('th');
+            th.textContent = header;
+            th.onclick = () => sortTable(headers.indexOf(header));
+            headerRow.appendChild(th);
+        });
+        statsTable.appendChild(headerRow);
+        showPage(stats, currentPage, headers);
+    }
+
+    function showPage(stats, page, headers) {
+        statsTable.innerHTML = '';
+        const start = (page - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+        const paginatedStats = stats.slice(start, end);
+        
+        const headerRow = document.createElement('tr');
+        headers.forEach(header => {
+            const th = document.createElement('th');
+            th.textContent = header;
+            headerRow.appendChild(th);
+        });
+        statsTable.appendChild(headerRow);
+
+        paginatedStats.forEach(row => {
+            const tr = document.createElement('tr');
+            headers.forEach(header => {
+                const td = document.createElement('td');
+                td.textContent = row[header];
+                tr.appendChild(td);
+            });
+            statsTable.appendChild(tr);
+        });
+
+        renderPagination(stats.length);
+    }
+
+    function renderPagination(totalRows) {
+        pagination.innerHTML = '';
+        const totalPages = Math.ceil(totalRows / rowsPerPage);
+
+        for (let i = 1; i <= totalPages; i++) {
+            const button = document.createElement('button');
+            button.textContent = i;
+            button.onclick = () => {
+                currentPage = i;
+                showPage(statsByYear[currentYear], currentPage, Object.keys(statsByYear[currentYear][0]));
+            };
+            pagination.appendChild(button);
+        }
+    }
+
+    function calculateAverage(stats, key) {
+        const sum = stats.reduce((acc, row) => acc + parseFloat(row[key]), 0);
+        return (sum / stats.length).toFixed(2);
+    }
+
+    function sortTable(columnIndex) {
+        const rows = Array.from(statsTable.rows).slice(1);
+        const isAscending = statsTable.rows[0].cells[columnIndex].classList.toggle('asc');
+        rows.sort((rowA, rowB) => {
+            const cellA = rowA.cells[columnIndex].textContent.trim();
+            const cellB = rowB.cells[columnIndex].textContent.trim();
+            return isAscending ? cellA.localeCompare(cellB) : cellB.localeCompare(cellA);
+        });
+        rows.forEach(row => statsTable.appendChild(row));
+    }
