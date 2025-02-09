@@ -315,52 +315,59 @@ function openCommTask() {
 // Attach event listener for communication button click
 commButton.addEventListener("click", openCommTask);
 
+// Close modal when user clicks "Understood"
+closeCommInfo.addEventListener("click", function () {
+    commInfoModal.style.display = "none";
+});
 
-// Navigation Calibration
+
+// Navigation Calibration Task
 const sensorPoints = document.querySelectorAll('#blackScreen4 .sensor-point');
 let activatedPoints = 0;
+const calibrationCompleteButton = document.querySelector('#blackScreen4 .complete-task-btn');
+const calibrationTaskScreen = document.getElementById("blackScreen4");
+const navigationButton = document.getElementById("ringButton4");
+const dashboardScreen = document.getElementById("controlRoomScreen");
 
+// Function to handle sensor clicks
 sensorPoints.forEach(point => {
     point.addEventListener('click', function() {
         if (!this.classList.contains('active')) {
-            this.classList.add('active');
+            this.classList.add('active'); // Mark the sensor point as clicked
             activatedPoints++;
-            
+
+            // Enable the completion button when all points are activated
             if (activatedPoints === sensorPoints.length) {
-                document.querySelector('#blackScreen4 .complete-task-btn').disabled = false;
+                calibrationCompleteButton.disabled = false; // Enable button
             }
         }
     });
 });
 
-// Reset screens when closed
-document.querySelectorAll('.closeButton').forEach(button => {
-    button.addEventListener('click', function() {
-        const screen = this.closest('.maintenance-screen');
-        
-        // Reset checkboxes
-        screen.querySelectorAll('.task-checkbox').forEach(cb => cb.checked = false);
-        
-        // Reset sliders
-        screen.querySelectorAll('.slider').forEach(slider => {
-            slider.value = slider.defaultValue;
-            slider.nextElementSibling.textContent = slider.value + '%';
-        });
-        
-        // Reset diagnostic results
-        const diagnosticResults = screen.querySelector('.diagnostic-results');
-        if (diagnosticResults) {
-            diagnosticResults.classList.add('hidden');
-        }
-        
-        // Reset sensor points
-        screen.querySelectorAll('.sensor-point').forEach(point => {
-            point.classList.remove('active');
-        });
-        activatedPoints = 0;
-        
-        // Reset buttons
-        screen.querySelectorAll('.complete-task-btn').forEach(btn => btn.disabled = true);
-        screen.querySelectorAll('.diagnostic-btn').forEach(btn => btn.disabled = false);
-    });
-});
+// Function to complete the navigation task
+function completeNavigationTask() {
+    if (!calibrationCompleteButton.disabled) {  // Ensure button is enabled before proceeding
+        // Hide the navigation calibration screen
+        calibrationTaskScreen.style.display = "none";
+
+        // Return to the dashboard
+        dashboardScreen.style.display = "flex";
+
+        // Fill the navigation task button to signify completion
+        navigationButton.style.backgroundColor = "#00ff00"; // Green to show it's completed
+        navigationButton.style.pointerEvents = "none"; // Disable further clicks
+        navigationButton.style.opacity = "0.5"; // Dim it slightly to show it's done
+        navigationButton.classList.add("completed-task"); // Add class for visual feedback
+
+        // Display a prompt about the task completion
+        const prompt = document.createElement('p');
+        prompt.textContent = "Navigation Calibration completed successfully. The spacecraft's course is now aligned.";
+        prompt.style.textAlign = "center";
+        prompt.style.fontSize = "20px";
+        prompt.style.color = "#00ff00";
+        dashboardScreen.appendChild(prompt);
+    }
+}
+
+// Attach the event listener for the completion button
+calibrationCompleteButton.addEventListener('click', completeNavigationTask);

@@ -40,7 +40,6 @@
                 <ul class="task-list">
                     <li>Check oxygen filtration system</li>
                     <li>Monitor fuel consumption levels</li>
-                    <li>Verify life support systems</li>
                     <li>Calibrate navigation instruments</li>
                 </ul>
             </div>
@@ -51,9 +50,9 @@
             <button id="acknowledgeButton">Acknowledge</button>
         </div>
     </div>
-</div>
+  </div>
 
-<div id="blackScreen1" class="black-screen maintenance-screen">
+  <div id="blackScreen1" class="black-screen maintenance-screen">
     <button class="closeButton">Close</button>
     <div class="maintenance-content">
         <h1>Oxygen Filtration System</h1>
@@ -84,10 +83,10 @@
             <button class="complete-task-btn" disabled>Complete Maintenance</button>
         </div>
     </div>
-</div>
+  </div>
 
-<!-- Oxygen Filtration Explanation Modal -->
-<div id="oxygenInfoModal" class="info-modal hidden">
+  <!-- Oxygen Filtration Explanation Modal -->
+  <div id="oxygenInfoModal" class="info-modal hidden">
     <div class="modal-content">
         <span class="close-modal">&times;</span>
         <h2>Oxygen Filtration System on NASA Spacecraft</h2>
@@ -106,10 +105,9 @@
         </p>
         <button id="closeOxygenInfo">Understood</button>
     </div>
-</div>
+  </div>
 
-
-<<div id="blackScreen2" class="black-screen maintenance-screen">
+  <div id="blackScreen2" class="black-screen maintenance-screen">
     <button class="closeButton">Close</button>
     <div class="maintenance-content">
         <h1>Restore Communications with NASA</h1>
@@ -132,33 +130,33 @@
 
         <button id="restoreCommButton" class="complete-task-btn hidden">Restore Communications</button>
     </div>
-</div>
+  </div>
 
-
-<div id="blackScreen3" class="black-screen maintenance-screen">
-    <button class="closeButton">Close</button>
-    <div class="maintenance-content">
-        <h1>Life Support Systems</h1>
-        <div class="status-display">
-            <p>Temperature: <span class="value">21°C</span></p>
-            <p>Humidity: <span class="value">45%</span></p>
-            <p>Air Quality: <span class="warning">Check Required</span></p>
-        </div>
-        <div class="task-interface">
-            <p>Run system diagnostics:</p>
-            <div class="diagnostic-panel">
-                <button class="diagnostic-btn">Start System Scan</button>
-                <div class="progress-bar">
-                    <div class="progress"></div>
-                </div>
-                <div class="diagnostic-results hidden">
-                </div>
-            </div>
-        </div>
+  <!-- Communications System Info Modal -->
+  <div id="commInfoModal" class="info-modal hidden">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>NASA Deep Space Network (DSN) Communications</h2>
+        <p>
+            The **Deep Space Network** is NASA's international array of giant radio antennas 
+            that supports spacecraft missions. It consists of three facilities spaced equally 
+            around the Earth in California, Spain, and Australia.
+        </p>
+        <p>
+            Each complex uses massive **70-meter (230-foot) antennas** operating at multiple 
+            frequency bands. The strategic placement ensures that spacecraft have constant 
+            communication with Earth as our planet rotates.
+        </p>
+        <p>
+            Fun Fact: When Voyager 1 sent its signal from the edge of our solar system, 
+            the signal was so faint that the energy received by DSN was about 
+            **10 exponents weaker than a digital watch battery**!
+        </p>
+        <button id="closeCommInfo">Understood</button>
     </div>
-</div>
+  </div>
 
-<div id="blackScreen4" class="black-screen maintenance-screen">
+  <div id="blackScreen4" class="black-screen maintenance-screen">
     <button class="closeButton">Close</button>
     <div class="maintenance-content">
         <h1>Navigation Calibration</h1>
@@ -177,18 +175,19 @@
             <button class="complete-task-btn" disabled>Confirm Calibration</button>
         </div>
     </div>
-</div>
-<!-- Main glowing button -->
-<button id="glowingButton" class="ring-button main-ring"></button>
+  </div>
 
-<!-- Container for the other 4 colored buttons -->
-<div class="ring-buttons-container">
-    <button id="ringButton1" class="ring-button ring-green task-button"></button>
-    <button id="ringButton2" class="ring-button ring-blue task-button"></button>
-    <button id="ringButton3" class="ring-button ring-purple task-button"></button>
-    <button id="ringButton4" class="ring-button ring-orange task-button"></button>
-</div>
+  <!-- Main glowing button -->
+  <button id="glowingButton" class="ring-button main-ring"></button>
 
-<script src="script.js"></script>
+  <!-- Container for the other 4 colored buttons -->
+  <div class="ring-buttons-container">
+      <button id="ringButton1" class="ring-button ring-green task-button"></button>
+      <button id="ringButton2" class="ring-button ring-blue task-button"></button>
+      <button id="ringButton3" class="ring-button ring-purple task-button"></button>
+      <button id="ringButton4" class="ring-button ring-orange task-button"></button>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
