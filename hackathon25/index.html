@@ -6,15 +6,6 @@
   <title>Space Journey</title>
   <link rel="stylesheet" href="styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
-  <style>
-    /* Apply the Orbitron font to the h1 element */
-    h1 {
-        font-family: 'Orbitron', sans-serif;
-        color: white; /* Optional: Change the text color */
-        text-align: center; /* Optional: Center the text */
-    }
-</style>
-
 </head>
 <body>
   <div id="startScreen">
@@ -25,67 +16,158 @@
   <div id="spaceScreen" class="hidden">
     <canvas id="spaceCanvas"></canvas>
     <div id="prompt" class="hidden">
-        <p>Earth is falling apart due to a blight destroying all crops on Earth. NASA has ordered you to make it to <span id="destination">Mars</span> and make the area suitable for human civilization. On the spacecraft now, your decisions will determine the fate of the world. Enter the control room to begin your mission.</p>
-        <button id="Enter Control Room">Enter Control Room</button>
+      <p>Earth is falling apart due to a blight destroying all crops on Earth. NASA has ordered you to make it to <span id="destination">Mars</span> and make the area suitable for human civilization. On the spacecraft now, your decisions will determine the fate of the world. Enter the control room to begin your mission.</p>
+      <button id="Enter Control Room">Enter Control Room</button>
     </div>
   </div>
 
   <div id="controlRoomScreen" class="hidden">
     <img src="images/dashboard.png" id="dashboardImage" alt="Control Room Dashboard">
     <div id="textBox">
-      <span id="closeButton">&times;</span> <!-- X button -->
+      <span id="closeButton">&times;</span>
       <p id="typewriterText"></p>
     </div>
   </div>
-  
-  <style>
-    .ring-button {
-        position: fixed;
-        top: 20px;
-        left: 20px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        border: 3px solid yellow;
-        background: transparent;
-        cursor: pointer;
-        animation: ringGlow 2s ease-in-out infinite;
-        z-index: 9999;
-        display: none; /* Initially hidden */
-    }
 
-    @keyframes ringGlow {
-        0% {
-            box-shadow: 0 0 5px yellow,
-                        inset 0 0 5px yellow;
-        }
-        50% {
-            box-shadow: 0 0 20px yellow,
-                        inset 0 0 10px yellow;
-        }
-        100% {
-            box-shadow: 0 0 5px yellow,
-                        inset 0 0 5px yellow;
-        }
-    }
-    </style>
-  <div id="blackBox">
-    <p id="typingText"></p>
-    <button id="closeButton">X</button>
-</div>
-<!-- Black Box (Initially Hidden) -->
-<div id="blackBox">
-    <p id="typingText"></p>
-    <button id="closeButton">X</button>
+  <div id="blackScreen" class="black-screen">
+    <div class="mission-content">
+        <h1 class="mission-title">CRITICAL SYSTEM ALERT</h1>
+        <h2 class="mission-subtitle">Maintenance Tasks Required</h2>
+        <div class="mission-text">
+            <p class="alert-message">Warning: Multiple systems require immediate attention.</p>
+            <div class="task-section">
+                <h3>Priority Tasks:</h3>
+                <ul class="task-list">
+                    <li>Check oxygen filtration system</li>
+                    <li>Monitor fuel consumption levels</li>
+                    <li>Verify life support systems</li>
+                    <li>Calibrate navigation instruments</li>
+                </ul>
+            </div>
+            <div class="status-section">
+                <h3>Current Status:</h3>
+                <p>Ship Systems: <span class="status-critical">CRITICAL</span></p>
+            </div>
+            <button id="acknowledgeButton">Acknowledge</button>
+        </div>
+    </div>
 </div>
 
-<button id="glowingButton" class="ring-button"></button>
+<div id="blackScreen1" class="black-screen maintenance-screen">
+    <button class="closeButton">Close</button>
+    <div class="maintenance-content">
+        <h1>Oxygen Filtration System</h1>
+        <div class="status-display">
+            <p>Current O₂ Levels: <span class="value">87%</span></p>
+            <p>Filter Status: <span class="warning">Needs Cleaning</span></p>
+        </div>
+        <div class="task-interface">
+            <p>The oxygen filtration system requires maintenance. Follow these steps:</p>
+            <div class="maintenance-steps">
+                <label class="step">
+                    <input type="checkbox" class="task-checkbox">
+                    <span>1. Power down primary filter</span>
+                </label>
+                <label class="step">
+                    <input type="checkbox" class="task-checkbox">
+                    <span>2. Replace filter membrane</span>
+                </label>
+                <label class="step">
+                    <input type="checkbox" class="task-checkbox">
+                    <span>3. Check pressure seals</span>
+                </label>
+                <label class="step">
+                    <input type="checkbox" class="task-checkbox">
+                    <span>4. Restart system</span>
+                </label>
+            </div>
+            <button class="complete-task-btn" disabled>Complete Maintenance</button>
+        </div>
+    </div>
+</div>
 
+<div id="blackScreen2" class="black-screen maintenance-screen">
+    <button class="closeButton">Close</button>
+    <div class="maintenance-content">
+        <h1>Fuel Management System</h1>
+        <div class="status-display">
+            <p>Fuel Level: <span class="value">64%</span></p>
+            <p>Consumption Rate: <span class="critical">Above Normal</span></p>
+        </div>
+        <div class="task-interface">
+            <p>Optimize fuel consumption by adjusting the following parameters:</p>
+            <div class="control-panel">
+                <div class="control-group">
+                    <label>Engine Power</label>
+                    <input type="range" min="0" max="100" value="75" class="slider">
+                    <span class="slider-value">75%</span>
+                </div>
+                <div class="control-group">
+                    <label>Flow Rate</label>
+                    <input type="range" min="0" max="100" value="80" class="slider">
+                    <span class="slider-value">80%</span>
+                </div>
+            </div>
+            <button class="complete-task-btn">Apply Changes</button>
+        </div>
+    </div>
+</div>
 
-<!-- Full-Screen Black Overlay (Initially Hidden) -->
-<div id="blackScreen"></div>
+<div id="blackScreen3" class="black-screen maintenance-screen">
+    <button class="closeButton">Close</button>
+    <div class="maintenance-content">
+        <h1>Life Support Systems</h1>
+        <div class="status-display">
+            <p>Temperature: <span class="value">21°C</span></p>
+            <p>Humidity: <span class="value">45%</span></p>
+            <p>Air Quality: <span class="warning">Check Required</span></p>
+        </div>
+        <div class="task-interface">
+            <p>Run system diagnostics:</p>
+            <div class="diagnostic-panel">
+                <button class="diagnostic-btn">Start System Scan</button>
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+                <div class="diagnostic-results hidden">
+                    <!-- Results will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
+<div id="blackScreen4" class="black-screen maintenance-screen">
+    <button class="closeButton">Close</button>
+    <div class="maintenance-content">
+        <h1>Navigation Calibration</h1>
+        <div class="status-display">
+            <p>Current Course: <span class="value">On Track</span></p>
+            <p>Last Calibration: <span class="warning">48hrs ago</span></p>
+        </div>
+        <div class="task-interface">
+            <p>Align navigation sensors:</p>
+            <div class="calibration-grid">
+                <div class="sensor-point" data-point="1"></div>
+                <div class="sensor-point" data-point="2"></div>
+                <div class="sensor-point" data-point="3"></div>
+                <div class="sensor-point" data-point="4"></div>
+            </div>
+            <button class="complete-task-btn" disabled>Confirm Calibration</button>
+        </div>
+    </div>
+</div>
+<!-- Main glowing button -->
+<button id="glowingButton" class="ring-button main-ring"></button>
 
-  <script src="script.js"></script>
+<!-- Container for the other 4 colored buttons -->
+<div class="ring-buttons-container">
+    <button id="ringButton1" class="ring-button ring-green task-button"></button>
+    <button id="ringButton2" class="ring-button ring-blue task-button"></button>
+    <button id="ringButton3" class="ring-button ring-purple task-button"></button>
+    <button id="ringButton4" class="ring-button ring-orange task-button"></button>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
