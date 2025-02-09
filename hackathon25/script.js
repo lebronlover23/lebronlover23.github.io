@@ -371,3 +371,4 @@ function completeNavigationTask() {
 
 // Attach the event listener for the completion button
 calibrationCompleteButton.addEventListener('click', completeNavigationTask);
+
