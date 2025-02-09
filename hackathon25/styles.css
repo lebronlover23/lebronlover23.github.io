@@ -1,0 +1,203 @@
+body {
+font-family: 'Orbitron', sans-serif;
+    font-family: Orbitron, sans-serif;
+    background-color: #000;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  #startScreen {
+    text-align: center;
+    position: absolute;
+    z-index: 2;
+  }
+  
+  #spaceScreen {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  canvas {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+  }
+  
+  #prompt {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 20px;
+    color: white;
+  }
+  
+  #controlRoomScreen {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    display: none; /* Ensures it's hidden initially */
+    justify-content: center;
+    align-items: center;
+    background-color: black; /* Backup in case image fails */
+  }
+  
+  #dashboardImage {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover; /* Ensures full coverage */
+  }
+  
+  #textBox {
+    position: absolute;
+    width: 50vw; /* Half of the full viewport width */
+    height: 50vh; /* Half of the full viewport height */
+    background-color: rgba(0, 0, 0, 0.8); /* Black with slight transparency */
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+  
+  /* Ensures the text scales properly inside the box */
+  #typewriterText {
+    max-width: 90%;
+    font-family: "Orbitron", sans-serif;
+    white-space: pre-wrap;
+  }
+  
+  #closeButton {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  #closeButton:hover {
+    color: red;
+  }
+  
+  #textBox {
+    position: absolute;
+    width: 50vw;
+    height: 50vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    flex-direction: column;
+  }
+  
+  /* Hide Black Box Initially */
+#blackBox {
+    display: none; /* Initially hidden */
+    position: fixed;
+    width: 50%;
+    background: black;
+    color: white;
+    padding: 20px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    border: 2px solid white;
+}
+
+/* Close Button */
+#closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.ring-button {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid yellow;
+    background: transparent;
+    cursor: pointer;
+    animation: ringGlow 2s ease-in-out infinite;
+    z-index: 1000;
+  }
+  
+  @keyframes ringGlow {
+    0% {
+      box-shadow: 0 0 5px yellow,
+                  inset 0 0 5px yellow;
+    }
+    50% {
+      box-shadow: 0 0 20px yellow,
+                  inset 0 0 10px yellow;
+    }
+    100% {
+      box-shadow: 0 0 5px yellow,
+                  inset 0 0 5px yellow;
+    }
+  }
+
+#glowingButton {
+    display: none; /* Initially hidden */
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+
+@keyframes glow {
+    0% { box-shadow: 0 0 5px yellow; }
+    100% { box-shadow: 0 0 20px yellow; }
+}
+
+
+/* Full Black Screen Overlay (Initially Hidden) */
+#blackScreen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: black;
+}
+

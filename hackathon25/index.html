@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Space Journey</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+  <style>
+    /* Apply the Orbitron font to the h1 element */
+    h1 {
+        font-family: 'Orbitron', sans-serif;
+        color: white; /* Optional: Change the text color */
+        text-align: center; /* Optional: Center the text */
+    }
+</style>
+
+</head>
+<body>
+  <div id="startScreen">
+    <h1>Interstellar</h1>
+    <button id="startJourney">Start Journey</button>
+  </div>
+
+  <div id="spaceScreen" class="hidden">
+    <canvas id="spaceCanvas"></canvas>
+    <div id="prompt" class="hidden">
+        <p>Earth is falling apart due to a blight destroying all crops on Earth. NASA has ordered you to make it to <span id="destination">Mars</span> and make the area suitable for human civilization. On the spacecraft now, your decisions will determine the fate of the world. Enter the control room to begin your mission.</p>
+        <button id="Enter Control Room">Enter Control Room</button>
+    </div>
+  </div>
+
+  <div id="controlRoomScreen" class="hidden">
+    <img src="images/dashboard.png" id="dashboardImage" alt="Control Room Dashboard">
+    <div id="textBox">
+      <span id="closeButton">&times;</span> <!-- X button -->
+      <p id="typewriterText"></p>
+    </div>
+  </div>
+  
+  <style>
+    .ring-button {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        border: 3px solid yellow;
+        background: transparent;
+        cursor: pointer;
+        animation: ringGlow 2s ease-in-out infinite;
+        z-index: 9999;
+        display: none; /* Initially hidden */
+    }
+
+    @keyframes ringGlow {
+        0% {
+            box-shadow: 0 0 5px yellow,
+                        inset 0 0 5px yellow;
+        }
+        50% {
+            box-shadow: 0 0 20px yellow,
+                        inset 0 0 10px yellow;
+        }
+        100% {
+            box-shadow: 0 0 5px yellow,
+                        inset 0 0 5px yellow;
+        }
+    }
+    </style>
+  <div id="blackBox">
+    <p id="typingText"></p>
+    <button id="closeButton">X</button>
+</div>
+<!-- Black Box (Initially Hidden) -->
+<div id="blackBox">
+    <p id="typingText"></p>
+    <button id="closeButton">X</button>
+</div>
+
+<button id="glowingButton" class="ring-button"></button>
+
+
+<!-- Full-Screen Black Overlay (Initially Hidden) -->
+<div id="blackScreen"></div>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
