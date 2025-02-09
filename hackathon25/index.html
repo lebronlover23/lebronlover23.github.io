@@ -86,32 +86,54 @@
     </div>
 </div>
 
-<div id="blackScreen2" class="black-screen maintenance-screen">
-    <button class="closeButton">Close</button>
-    <div class="maintenance-content">
-        <h1>Fuel Management System</h1>
-        <div class="status-display">
-            <p>Fuel Level: <span class="value">64%</span></p>
-            <p>Consumption Rate: <span class="critical">Above Normal</span></p>
-        </div>
-        <div class="task-interface">
-            <p>Optimize fuel consumption by adjusting the following parameters:</p>
-            <div class="control-panel">
-                <div class="control-group">
-                    <label>Engine Power</label>
-                    <input type="range" min="0" max="100" value="75" class="slider">
-                    <span class="slider-value">75%</span>
-                </div>
-                <div class="control-group">
-                    <label>Flow Rate</label>
-                    <input type="range" min="0" max="100" value="80" class="slider">
-                    <span class="slider-value">80%</span>
-                </div>
-            </div>
-            <button class="complete-task-btn">Apply Changes</button>
-        </div>
+<!-- Oxygen Filtration Explanation Modal -->
+<div id="oxygenInfoModal" class="info-modal hidden">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>Oxygen Filtration System on NASA Spacecraft</h2>
+        <p>
+            NASA spacecraft use **Environmental Control and Life Support Systems (ECLSS)** to regulate oxygen.
+            The system generates breathable air by **electrolyzing water**, splitting it into **hydrogen and oxygen**.
+            Additionally, **scrubbers** remove CO₂ using lithium hydroxide and zeolite.
+        </p>
+        <p>
+            On modern spacecraft, the **Oxygen Generation Assembly (OGA)** produces oxygen, while the 
+            **Carbon Dioxide Removal Assembly (CDRA)** ensures excess CO₂ does not build up.
+            Regular maintenance involves cleaning filters, checking pressure seals, and replacing membranes.
+        </p>
+        <p>
+            Fun Fact: The International Space Station (ISS) **recycles up to 85% of its oxygen** through these systems!
+        </p>
+        <button id="closeOxygenInfo">Understood</button>
     </div>
 </div>
+
+
+<<div id="blackScreen2" class="black-screen maintenance-screen">
+    <button class="closeButton">Close</button>
+    <div class="maintenance-content">
+        <h1>Restore Communications with NASA</h1>
+        <p>NASA's communication array is offline. Align the satellites to reestablish contact.</p>
+        
+        <div class="satellite-interface">
+            <div class="satellite" data-correct="3">
+                <p>Satellite 1 Frequency:</p>
+                <button class="freq-button">100 MHz</button>
+            </div>
+            <div class="satellite" data-correct="2">
+                <p>Satellite 2 Frequency:</p>
+                <button class="freq-button">200 MHz</button>
+            </div>
+            <div class="satellite" data-correct="1">
+                <p>Satellite 3 Frequency:</p>
+                <button class="freq-button">300 MHz</button>
+            </div>
+        </div>
+
+        <button id="restoreCommButton" class="complete-task-btn hidden">Restore Communications</button>
+    </div>
+</div>
+
 
 <div id="blackScreen3" class="black-screen maintenance-screen">
     <button class="closeButton">Close</button>
@@ -130,7 +152,6 @@
                     <div class="progress"></div>
                 </div>
                 <div class="diagnostic-results hidden">
-                    <!-- Results will be populated by JavaScript -->
                 </div>
             </div>
         </div>

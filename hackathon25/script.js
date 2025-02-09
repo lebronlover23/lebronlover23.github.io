@@ -182,47 +182,139 @@ document.querySelectorAll(".closeButton").forEach(button => {
 });
 
 // Oxygen System Task
-document.querySelectorAll('#blackScreen1 .task-checkbox').forEach(checkbox => {
-    checkbox.addEventListener('change', function() {
-        const allChecked = [...document.querySelectorAll('#blackScreen1 .task-checkbox')]
-            .every(box => box.checked);
-        document.querySelector('#blackScreen1 .complete-task-btn').disabled = !allChecked;
-    });
+// Select necessary elements
+const oxygenCheckboxes = document.querySelectorAll('#blackScreen1 .task-checkbox');
+const oxygenCompleteButton = document.querySelector('#blackScreen1 .complete-task-btn');
+const oxygenTaskScreen = document.getElementById("blackScreen1");
+const oxygenButton = document.getElementById("ringButton1");
+const oxygenInfoModal = document.getElementById("oxygenInfoModal");
+const closeOxygenInfo = document.getElementById("closeOxygenInfo");
+
+// Function to check if all checkboxes are checked
+function checkOxygenTaskCompletion() {
+    const allChecked = [...oxygenCheckboxes].every(checkbox => checkbox.checked);
+    oxygenCompleteButton.disabled = !allChecked; // Enable button only if all tasks are checked
+}
+
+// Add event listeners to all checkboxes
+oxygenCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', checkOxygenTaskCompletion);
 });
+
+// Function to complete the oxygen maintenance task
+function completeOxygenTask() {
+    if (!oxygenCompleteButton.disabled) { // Ensure button is enabled before executing
+        // Hide the oxygen maintenance screen
+        oxygenTaskScreen.style.display = "none";
+
+        // Redirect user back to the control room/dashboard
+        document.getElementById("controlRoomScreen").style.display = "flex";
+
+        // Fill the oxygen task button to signify completion
+        oxygenButton.style.backgroundColor = "#00ff00"; // Green to show it's completed
+        oxygenButton.style.pointerEvents = "none"; // Disable further clicks
+        oxygenButton.style.opacity = "0.5"; // Dim it slightly to show it's done
+        oxygenButton.classList.add("completed-task");
+
+        // Prevent user from opening the oxygen task again
+        oxygenButton.removeEventListener("click", openOxygenTask);
+
+        // Show the Oxygen Filtration Info Modal
+        oxygenInfoModal.style.display = "block";
+    }
+}
+
+// Attach event listener for completing the task
+oxygenCompleteButton.addEventListener('click', completeOxygenTask);
+
+// Function to open oxygen task (needed for removal)
+function openOxygenTask() {
+    document.getElementById("blackScreen1").style.display = "block";
+}
+
+// Attach event listener for oxygen button click
+oxygenButton.addEventListener("click", openOxygenTask);
+
+// Close modal when user clicks "Understood"
+closeOxygenInfo.addEventListener("click", function () {
+    oxygenInfoModal.style.display = "none";
+});
+
 
 // Fuel Management System
-document.querySelectorAll('#blackScreen2 .slider').forEach(slider => {
-    slider.addEventListener('input', function() {
-        this.nextElementSibling.textContent = this.value + '%';
+// Select elements
+const satelliteButtons = document.querySelectorAll('#blackScreen2 .freq-button');
+const restoreCommButton = document.getElementById("restoreCommButton");
+const commTaskScreen = document.getElementById("blackScreen2");
+const commButton = document.getElementById("ringButton2");
+const commInfoModal = document.getElementById("commInfoModal");
+const closeCommInfo = document.getElementById("closeCommInfo");
+
+// Possible frequencies for each satellite
+const frequencies = ["100 MHz", "200 MHz", "300 MHz", "400 MHz"];
+const correctFrequencies = ["300 MHz", "200 MHz", "100 MHz"]; // Correct order
+
+// Function to cycle frequencies
+satelliteButtons.forEach((button, index) => {
+    button.addEventListener("click", function () {
+        let currentFreq = frequencies.indexOf(button.textContent);
+        let newFreqIndex = (currentFreq + 1) % frequencies.length;
+        button.textContent = frequencies[newFreqIndex];
+
+        checkSatelliteAlignment();
     });
 });
 
-// Life Support Diagnostics
-document.querySelector('#blackScreen3 .diagnostic-btn').addEventListener('click', function() {
-    const progressBar = document.querySelector('#blackScreen3 .progress');
-    const results = document.querySelector('#blackScreen3 .diagnostic-results');
-    
-    this.disabled = true;
-    progressBar.style.width = '0%';
-    
-    let progress = 0;
-    const interval = setInterval(() => {
-        progress += 1;
-        progressBar.style.width = progress + '%';
-        
-        if (progress >= 100) {
-            clearInterval(interval);
-            results.classList.remove('hidden');
-            results.innerHTML = `
-                <h3>Diagnostic Complete</h3>
-                <p>Temperature Control: OK</p>
-                <p>Humidity Regulation: OK</p>
-                <p>Air Filtration: Maintenance Required</p>
-            `;
-            this.disabled = false;
+// Function to check if satellites are aligned correctly
+function checkSatelliteAlignment() {
+    let allCorrect = true;
+    satelliteButtons.forEach((button, index) => {
+        if (button.textContent !== correctFrequencies[index]) {
+            allCorrect = false;
         }
-    }, 50);
-});
+    });
+
+    if (allCorrect) {
+        restoreCommButton.classList.remove("hidden"); // Show "Restore Communications" button
+    } else {
+        restoreCommButton.classList.add("hidden"); // Hide it if not correct
+    }
+}
+
+// Function to complete the communication restoration task
+function completeCommTask() {
+    if (!restoreCommButton.classList.contains("hidden")) { // Ensure button is visible before execution
+        // Hide the communication task screen
+        commTaskScreen.style.display = "none";
+
+        // Redirect user back to the control room/dashboard
+        document.getElementById("controlRoomScreen").style.display = "flex";
+
+        // Fill the communication task button to signify completion
+        commButton.style.backgroundColor = "#00ff00"; // Green to show it's completed
+        commButton.style.pointerEvents = "none"; // Disable further clicks
+        commButton.style.opacity = "0.5"; // Dim it slightly to show it's done
+        commButton.classList.add("completed-task");
+
+        // Prevent user from opening the communication task again
+        commButton.removeEventListener("click", openCommTask);
+
+        // Show the Communications Info Modal
+        commInfoModal.style.display = "block";
+    }
+}
+
+// Attach event listener for restoring communications
+restoreCommButton.addEventListener("click", completeCommTask);
+
+// Function to open communication task (needed for removal)
+function openCommTask() {
+    document.getElementById("blackScreen2").style.display = "block";
+}
+
+// Attach event listener for communication button click
+commButton.addEventListener("click", openCommTask);
+
 
 // Navigation Calibration
 const sensorPoints = document.querySelectorAll('#blackScreen4 .sensor-point');
