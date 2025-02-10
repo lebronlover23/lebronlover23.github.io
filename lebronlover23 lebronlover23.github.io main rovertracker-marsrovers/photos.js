@@ -1,6 +1,6 @@
 const apiKey = "oyIAqOFFEKcUBtrkqbDI0PTD2I8NMultuw7jCcco";
 
-// Function to fetch recent Mars orbiter photos
+
 async function fetchMarsPhotos() {
     try {
         console.log("Fetching latest Mars satellite photos...");
@@ -14,14 +14,14 @@ async function fetchMarsPhotos() {
             return;
         }
 
-        photoGallery.innerHTML = ""; // Clear previous images
+        photoGallery.innerHTML = ""; 
 
         if (!data.latest_photos || data.latest_photos.length === 0) {
             photoGallery.innerHTML = "<p>No recent photos available.</p>";
             return;
         }
 
-        // Loop through photos and create elements (show only 4)
+        
         data.latest_photos.slice(0, 4).forEach(photo => {
             let photoContainer = document.createElement("div");
             photoContainer.classList.add("photo-container");
@@ -31,12 +31,12 @@ async function fetchMarsPhotos() {
             imgElement.alt = "Mars Satellite Image";
             imgElement.classList.add("mars-photo");
 
-            // Extract date, time, and rover name
+            
             let earthDate = photo.earth_date || "Unknown Date";
             let roverName = photo.rover?.name || "Unknown Rover";
             let cameraName = photo.camera?.full_name || "Unknown Camera";
             
-            // Location (if available)
+            
             let latitude = photo.rover?.landing_latitude || "N/A";
             let longitude = photo.rover?.landing_longitude || "N/A";
 
@@ -59,5 +59,5 @@ async function fetchMarsPhotos() {
     }
 }
 
-// Fetch photos when page loads
+
 document.addEventListener("DOMContentLoaded", fetchMarsPhotos);
