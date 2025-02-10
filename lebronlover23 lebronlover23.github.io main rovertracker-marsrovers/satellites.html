@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
     <style>
-        /* General Styling */
+        
         body {
             font-family: Arial, sans-serif;
             background-color: #1a1a1a;
@@ -17,14 +17,14 @@
             padding: 0;
         }
 
-        /* Container */
+       
         .container {
             max-width: 900px;
             margin: auto;
             padding: 20px;
         }
 
-        /* Mars Map */
+        
         #mars-satellite-map {
             width: 100%;
             height: 500px;
@@ -34,7 +34,7 @@
             background: black;
         }
 
-        /* Back Button */
+        
         .back-btn {
             background: #ff4500;
             color: white;
@@ -51,7 +51,7 @@
             color: black;
         }
 
-        /* Satellite Panel */
+        
         .satellite-panel {
             background: rgba(0, 0, 0, 0.9);
             border-radius: 10px;
@@ -60,7 +60,7 @@
             box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
         }
 
-        /* Satellite List */
+       
         #satellite-list {
             list-style: none;
             padding: 0;
@@ -83,10 +83,10 @@
         <h1>🛰️ Mars Satellite Tracking</h1>
         <p>Displaying real-time positions of active satellites orbiting Mars.</p>
 
-        <!-- Mars Map for Satellites -->
+        
         <div id="mars-satellite-map"></div>
 
-        <!-- Satellite Information Panel -->
+        
         <div class="satellite-panel">
             <h2>🌍 Active Mars Orbiters</h2>
             <ul id="satellite-list">
@@ -96,7 +96,7 @@
     </div>
 
     <script>
-        // Initialize Mars Map
+        
         var map = L.map('mars-satellite-map', {
             minZoom: 1,
             maxZoom: 5,
@@ -105,20 +105,20 @@
             crs: L.CRS.Simple
         });
 
-        // Load Mars Map Image
+        
         var imageUrl = 'mars.jpg';
         var imageBounds = [[-90, -180], [90, 180]];
         L.imageOverlay(imageUrl, imageBounds).addTo(map);
         map.fitBounds(imageBounds);
 
-        // Default Leaflet Marker for Satellites
+        
         var defaultMarker = L.icon({
             iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
             iconSize: [25, 41],
             iconAnchor: [12, 41]
         });
 
-        // Fake Mars Satellites Data
+        
         var satellites = [
             { name: "Mars Reconnaissance Orbiter", lat: 20.0, lng: 75.0 },
             { name: "MAVEN", lat: -10.5, lng: 125.2 },
@@ -126,15 +126,15 @@
             { name: "ExoMars TGO", lat: -35.2, lng: 98.7 }
         ];
 
-        // Display Satellite Data on Map
+        
         satellites.forEach(satellite => {
             let marker = L.marker([satellite.lat, satellite.lng], { icon: defaultMarker }).addTo(map);
             marker.bindPopup(`<b>${satellite.name}</b><br>Lat: ${satellite.lat.toFixed(2)}, Lng: ${satellite.lng.toFixed(2)}`);
         });
 
-        // Display Satellite List
+        
         let satelliteList = document.getElementById("satellite-list");
-        satelliteList.innerHTML = ""; // Clear previous entries
+        satelliteList.innerHTML = ""; 
 
         satellites.forEach(satellite => {
             let listItem = document.createElement("li");
