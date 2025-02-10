@@ -1,4 +1,4 @@
-/* General Page Styling */
+
 body {
     font-family: Arial, sans-serif;
     text-align: center;
@@ -8,31 +8,31 @@ body {
     padding: 0;
 }
 
-/* Container for the map and details */
+
 .container {
     max-width: 900px;
     margin: auto;
     padding: 20px;
 }
 
-/* Mars Map Styling */
+
 #mars-map {
     width: 100%;
-    height: 500px; /* Ensures the map renders properly */
+    height: 500px; 
     margin-top: 20px;
     border: 2px solid white;
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
-    background: #000; /* Ensures a visible background before map loads */
+    background: #000; 
 }
 
-/* Coordinates Display */
+
 #coords {
     font-size: 18px;
     margin-top: 10px;
     color: #ffcc00;
 }
 
-/* Photo Tab Styling */
+
 .photo-tab {
     position: fixed;
     bottom: 20px;
@@ -45,7 +45,7 @@ body {
     box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
 }
 
-/* Button Styling */
+
 #togglePhotos {
     background: #ffcc00;
     color: black;
@@ -62,25 +62,25 @@ body {
     gap: 6px;
 }
 
-/* Adjust icon inside button */
+
 #togglePhotos img {
     width: 16px;
     height: 16px;
 }
 
-/* Button Hover Effect */
+
 #togglePhotos:hover {
     background: white;
     color: black;
     transform: scale(1.05);
 }
 
-/* Hidden Class for Toggling */
+
 .hidden {
     display: none;
 }
 
-/* Photo Gallery Container */
+
 #photoGallery {
     background: rgba(0, 0, 0, 0.95);
     border-radius: 12px;
@@ -94,7 +94,7 @@ body {
     animation: fadeIn 0.5s ease-in-out;
 }
 
-/* Mars Photos Grid */
+
 #mars-photos {
     display: flex;
     flex-wrap: wrap;
@@ -103,7 +103,7 @@ body {
     padding: 10px;
 }
 
-/* Individual Mars Photos */
+
 .mars-photo {
     width: 140px;
     height: auto;
@@ -118,7 +118,7 @@ body {
     box-shadow: 0px 0px 10px yellow;
 }
 
-/* Fade-in Animation */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
