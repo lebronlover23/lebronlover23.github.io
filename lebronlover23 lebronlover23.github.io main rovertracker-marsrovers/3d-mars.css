@@ -4,7 +4,7 @@ body {
     margin: 0; 
     background-color: black; 
     overflow: hidden; 
-    font-family: 'Orbitron', sans-serif; /* Futuristic font */
+    font-family: 'Orbitron', sans-serif;
 }
 canvas { display: block; }
 
@@ -13,7 +13,6 @@ canvas { display: block; }
     height: 100vh;
 }
 
-/* Back Button */
 .back-btn {
     position: absolute;
     top: 20px;
@@ -35,7 +34,6 @@ canvas { display: block; }
     transform: scale(1.05);
 }
 
-/* Toggle Controls */
 #controls {
     position: absolute;
     top: 20px;
@@ -71,7 +69,6 @@ canvas { display: block; }
     transform: scale(1.2);
 }
 
-/* Legend Styling */
 #legend {
     position: absolute;
     bottom: 20px;
@@ -113,7 +110,6 @@ canvas { display: block; }
 .blue { background: blue; }
 .green { background: green; }
 
-/* Coordinate Display */
 #coordinate-display {
     position: absolute;
     bottom: 10px;
