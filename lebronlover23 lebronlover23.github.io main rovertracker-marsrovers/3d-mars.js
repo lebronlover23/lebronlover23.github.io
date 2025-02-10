@@ -1,39 +1,39 @@
-// Ensure Three.js is loaded before running the script
+
 document.addEventListener("DOMContentLoaded", function() {
-    // Scene Setup
+   
     const scene = new THREE.Scene();
 
-    // Camera
+    
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    camera.position.z = 3; // Adjust zoom
+    camera.position.z = 3; 
 
-    // Renderer
+    
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.getElementById("mars-container").appendChild(renderer.domElement);
 
-    // Load Mars Texture
+    
     const textureLoader = new THREE.TextureLoader();
     const marsTexture = textureLoader.load('8k_mars.jpg');
 
-    // Create Mars Sphere
+    
     const geometry = new THREE.SphereGeometry(1, 64, 64);
     const material = new THREE.MeshStandardMaterial({ map: marsTexture });
     const mars = new THREE.Mesh(geometry, material);
     scene.add(mars);
 
-    // Lighting
+    
     const light = new THREE.PointLight(0xffffff, 1);
     light.position.set(5, 3, 5);
     scene.add(light);
 
-    // Orbit Controls
+    
     const controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.05;
     controls.enableZoom = true;
 
-    // Convert Lat/Lon to 3D Vector
+    
     function latLonToVector3(lat, lon, radius) {
         const phi = (90 - lat) * (Math.PI / 180);
         const theta = (lon + 180) * (Math.PI / 180);
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function() {
         return new THREE.Vector3(x, y, z);
     }
 
-    // Create Groups for Rovers, Landmarks, and Bases (Attach to Mars)
+    
     const markersGroup = new THREE.Group();
     const roverGroup = new THREE.Group();
     const landmarkGroup = new THREE.Group();
@@ -53,13 +53,13 @@ document.addEventListener("DOMContentLoaded", function() {
     mars.add(markersGroup);
     markersGroup.add(roverGroup, landmarkGroup, baseGroup);
 
-    // Rover Data (Red Markers)
+    
     const rovers = [
         { name: "Curiosity", lat: -4.59, lon: 137.44 },
         { name: "Perseverance", lat: 18.4, lon: 77.5 }
     ];
 
-    // Landmark Data (Blue Markers)
+    
     const landmarks = [
         { name: "Olympus Mons", lat: 18.65, lon: -133.8, info: "Largest volcano in the solar system, standing about 22 km high." },
         { name: "Valles Marineris", lat: -14, lon: -60, info: "Massive canyon system over 4,000 km long and up to 7 km deep." },
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function() {
         { name: "Tharsis Montes", lat: 0, lon: -105, info: "A volcanic plateau home to some of the tallest volcanoes on Mars." }
     ];
 
-    // Landing Sites/Bases (Green Markers)
+    
     const bases = [
         { name: "Viking 1", year: 1976, lat: 22.697, lon: -48.222 },
         { name: "Viking 2", year: 1976, lat: 47.968, lon: 225.74 },
@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function() {
         { name: "Phoenix Lander", year: 2008, lat: 68.22, lon: -125.7 }
     ];
 
-    // Create Markers
+    
     function createMarkers(data, group, color) {
         const geometry = new THREE.SphereGeometry(0.03, 16, 16);
         const material = new THREE.MeshBasicMaterial({ color: color });
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function() {
     createMarkers(landmarks, landmarkGroup, 0x0000ff);
     createMarkers(bases, baseGroup, 0x00ff00);
 
-    // Raycaster for Click Detection
+    
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
 
@@ -112,7 +112,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (clickedObject.year) message += `\n📅 Year: ${clickedObject.year}`;
             alert(message);
         } else {
-            // Calculate clicked coordinates
+            
             const marsPoint = raycaster.intersectObject(mars, true);
             if (marsPoint.length > 0) {
                 const point = marsPoint[0].point;
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     window.addEventListener('click', onClick);
 
-    // Toggle Markers
+    
     function toggleMarkers(group, checkbox) {
         group.visible = checkbox.checked;
     }
@@ -141,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function() {
         toggleMarkers(baseGroup, this);
     });
 
-    // Animation Loop
+    
     function animate() {
         requestAnimationFrame(animate);
         mars.rotation.y += 0.002;
