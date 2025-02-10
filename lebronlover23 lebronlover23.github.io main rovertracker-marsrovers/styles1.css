@@ -282,7 +282,7 @@ body {
     cursor: pointer;
 }
 
-/* Style for the main glowing button - keep its fixed position */
+
 .ring-button.main-ring {
     position: fixed;
     top: 20px;
@@ -304,12 +304,12 @@ body {
     right: 0;
     display: flex;
     justify-content: center;
-    gap: 100px; /* Increased gap for more spacing */
+    gap: 100px; 
     z-index: 9999;
-    padding: 0 100px; /* Added padding to keep buttons from edges */
+    padding: 0 100px; 
 }
 
-/* Remove any inline styles from the buttons */
+
 .ring-buttons-container .task-button {
     position: relative;
     width: 50px;
@@ -501,10 +501,10 @@ body {
 }
 
 .completed-task {
-    background-color: #00ff00 !important; /* Green to show completion */
-    pointer-events: none; /* Prevent clicking */
-    opacity: 0.5; /* Make it dim */
-    border: 2px solid #007700; /* Darker border for clarity */
+    background-color: #00ff00 !important; 
+    pointer-events: none; 
+    opacity: 0.5; 
+    border: 2px solid #007700; 
 }
 
 .info-modal {
@@ -636,7 +636,7 @@ body {
 .completed-task {
     background-color: #00ff00 !important; /* Green to show completion */
     pointer-events: none; /* Prevent clicking */
-    opacity: 0.5; /* Make it dim */
+    opacity: 0.5; 
     border: 2px solid #007700; /* Darker border for clarity */
 }
 
