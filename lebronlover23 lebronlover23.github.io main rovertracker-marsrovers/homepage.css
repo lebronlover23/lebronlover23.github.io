@@ -1,7 +1,7 @@
-/* Import Google Font */
+
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
 
-/* General Page Styling */
+
 body {
     font-family: 'Orbitron', sans-serif;
     text-align: center;
@@ -14,7 +14,7 @@ body {
     overflow: hidden;
 }
 
-/* Dark Overlay Effect */
+
 .background-overlay {
     position: absolute;
     top: 0;
@@ -25,7 +25,7 @@ body {
     z-index: 0;
 }
 
-/* Homepage Content */
+
 .homepage-container {
     position: relative;
     z-index: 1;
@@ -39,7 +39,7 @@ body {
     box-shadow: 0px 0px 20px rgba(255, 69, 0, 0.8);
 }
 
-/* Title */
+
 .title {
     font-size: 40px;
     letter-spacing: 2px;
@@ -48,14 +48,14 @@ body {
     animation: glow 2s infinite alternate;
 }
 
-/* Subtitle */
+
 .subtitle {
     font-size: 20px;
     opacity: 0.8;
     margin-bottom: 20px;
 }
 
-/* Buttons */
+
 .buttons {
     margin-top: 30px;
 }
@@ -83,7 +83,7 @@ body {
     transform: scale(1.1);
 }
 
-/* Button Animation */
+
 @keyframes glow {
     0% { text-shadow: 0 0 10px rgba(255, 69, 0, 1); }
     100% { text-shadow: 0 0 20px rgba(255, 69, 0, 0.8); }
