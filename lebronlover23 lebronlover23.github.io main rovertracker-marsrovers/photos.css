@@ -1,38 +1,38 @@
-/* General Page Styling */
+
 body {
     font-family: "Orbitron", sans-serif;
     text-align: center;
-    background-color: #2d1b0f; /* Deep Martian Brown */
-    color: #ff8c42; /* Orange-Red Glow */
+    background-color: #2d1b0f; 
+    color: #ff8c42; 
     margin: 0;
     padding: 0;
 }
 
-/* Container */
+
 .container {
     max-width: 1000px;
     margin: auto;
     padding: 20px;
-    border: 2px solid #ff4500; /* Glowing Orange Border */
-    background: rgba(43, 24, 14, 0.95); /* Martian Dust Background */
+    border: 2px solid #ff4500; 
+    background: rgba(43, 24, 14, 0.95); 
     border-radius: 10px;
     box-shadow: 0px 0px 20px rgba(255, 69, 0, 0.7);
 }
 
-/* Photo Gallery */
+
 #photoGallery {
-    background: rgba(61, 34, 19, 0.95); /* Martian Brown */
+    background: rgba(61, 34, 19, 0.95); 
     border-radius: 12px;
     padding: 12px;
     text-align: center;
     max-width: 90%;
     margin: 15px auto;
-    border: 2px solid #ff8c42; /* Orange-Red Border */
+    border: 2px solid #ff8c42; 
     box-shadow: 0px 0px 15px rgba(255, 69, 0, 0.6);
     animation: fadeIn 0.5s ease-in-out;
 }
 
-/* Mars Photos Grid */
+
 #mars-photos {
     display: flex;
     flex-wrap: wrap;
@@ -41,7 +41,7 @@ body {
     padding: 10px;
 }
 
-/* Photo Container */
+
 .photo-container {
     background: rgba(50, 20, 10, 0.8);
     padding: 10px;
@@ -52,7 +52,7 @@ body {
     max-width: 250px;
 }
 
-/* Individual Mars Photos */
+
 .mars-photo {
     width: 100%;
     border: 3px solid #ff4500;
@@ -66,7 +66,7 @@ body {
     box-shadow: 0px 0px 15px yellow;
 }
 
-/* Info Styling */
+
 .photo-container p {
     font-size: 14px;
     color: #ffcc99;
@@ -74,7 +74,7 @@ body {
     text-align: left;
 }
 
-/* Fade-in Animation */
+
 @keyframes fadeIn {
     from {
         opacity: 0;
