@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="container">
-        <!-- Buttons to navigate to other pages -->
+        
         <button onclick="window.location.href='photos.html'" class="photos-btn">📡 View Mars Photos</button>
         <button onclick="window.location.href='3d-mars.html'" class="mars3d-btn">🌍 Explore 3D Mars</button>
 
@@ -21,7 +21,7 @@
     </div>
 
     <script>
-        // Initialize the Mars Map
+        
         var map = L.map('mars-map', {
             minZoom: 1,
             maxZoom: 5,
@@ -31,34 +31,34 @@
             zoomControl: true
         });
 
-        // Load the Mars map image
+        
         var imageUrl = 'mars.jpg'; 
         var imageBounds = [[-90, -180], [90, 180]];
         L.imageOverlay(imageUrl, imageBounds).addTo(map);
         map.fitBounds(imageBounds);
 
-        // Default Leaflet Marker Icon for Landmarks
+        
         var defaultIcon = L.icon({
             iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
             iconSize: [25, 41],
             iconAnchor: [12, 41]
         });
 
-        // Custom Rover Icon
+        
         var roverIcon = L.icon({
             iconUrl: 'rover-marker.png', 
             iconSize: [35, 35],
             iconAnchor: [17, 35]
         });
 
-        // NASA API Key
+        
         const apiKey = "oyIAqOFFEKcUBtrkqbDI0PTD2I8NMultuw7jCcco";
 
-        // Initialize markers for rovers
+        
         var curiosityMarker = L.marker([-4.5895, 137.4417], { icon: roverIcon }).addTo(map);
         var perseveranceMarker = L.marker([18.4, 77.5], { icon: roverIcon }).addTo(map);
 
-        // Function to fetch and update rover locations
+        
         async function fetchRoverData() {
             try {
                 let curiosityResponse = await fetch(`https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/latest_photos?api_key=${apiKey}`);
@@ -104,11 +104,11 @@
             }
         }
 
-        // Fetch rover data every 60 seconds
+        
         fetchRoverData();
         setInterval(fetchRoverData, 60000);
 
-        // Mars Landmark List
+        
         var landmarks = [
             { name: "Olympus Mons", lat: 18.65, lng: -133.8, info: "The largest volcano in the solar system, standing about 22 km high." },
             { name: "Valles Marineris", lat: -14, lng: -60, info: "A canyon system over 4,000 km long and up to 7 km deep, stretching across Mars." },
@@ -117,14 +117,14 @@
             { name: "Elysium Mons", lat: 25.02, lng: 147.21, info: "A large volcano in the Elysium Planitia region, rising about 12 km above the surface." }
         ];
 
-        // Add Landmarks to Map
+        
         landmarks.forEach(function(landmark) {
             L.marker([landmark.lat, landmark.lng], { icon: defaultIcon })
                 .addTo(map)
                 .bindPopup(`<b>${landmark.name}</b><br>${landmark.info}`);
         });
 
-        // Click event to get coordinates
+        
         map.on('click', function(e) {
             document.getElementById('coords').innerText = `Latitude: ${e.latlng.lat.toFixed(2)}, Longitude: ${e.latlng.lng.toFixed(2)}`;
         });
